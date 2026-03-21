@@ -27,7 +27,8 @@ import com.hferrer08.pokedex151.viewmodel.PokemonListViewModel
 @Composable
 fun PokemonListScreen(
     modifier: Modifier = Modifier,
-    viewModel: PokemonListViewModel = viewModel()
+    viewModel: PokemonListViewModel = viewModel(),
+    onPokemonClick: (Int) -> Unit
 ) {
     val pokemonList = viewModel.pokemonList
     val isLoading = viewModel.isLoading
@@ -88,7 +89,10 @@ fun PokemonListScreen(
                     verticalArrangement = Arrangement.spacedBy(10.dp)
                 ) {
                     items(pokemonList) { pokemon ->
-                        PokemonItem(pokemon = pokemon)
+                        PokemonItem(
+                            pokemon = pokemon,
+                            onClick = { onPokemonClick(pokemon.id) }
+                        )
                     }
                 }
 
@@ -120,9 +124,10 @@ fun PokemonListScreen(
 }
 
 @Composable
-fun PokemonItem(pokemon: Pokemon) {
+fun PokemonItem(pokemon: Pokemon,  onClick: () -> Unit) {
     Card(
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        onClick = onClick
     ) {
         Row(
             modifier = Modifier
