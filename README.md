@@ -114,15 +114,6 @@ Este es un proyecto personal de aprendizaje, pero cualquier sugerencia es bienve
 
 ---
 
-## 📚 Aprendizajes
-
-Este proyecto forma parte de mi proceso para convertirme en desarrollador móvil, complementando mi experiencia en:
-
-- React ⚛️
-- .NET / C# 🧠
-- SQL 🗄️
-
----
 
 ## 👨‍💻 Autor
 
