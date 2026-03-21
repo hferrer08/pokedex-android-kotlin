@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             PokeDex151Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
+                    PokemonListScreen(
                         name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
