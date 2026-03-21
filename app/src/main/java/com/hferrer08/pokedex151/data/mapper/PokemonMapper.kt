@@ -4,8 +4,19 @@ import com.hferrer08.pokedex151.data.remote.dto.PokemonResultDto
 import com.hferrer08.pokedex151.domain.model.Pokemon
 
 fun PokemonResultDto.toDomain(): Pokemon {
+    val id = url
+        .trimEnd('/')
+        .split("/")
+        .last()
+        .toInt()
+
+    val imageUrl =
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$id.png"
+
+
     return Pokemon(
-        name = this.name,
-        url = this.url
+        id = id,
+        name = name,
+        imageUrl = imageUrl
     )
 }
