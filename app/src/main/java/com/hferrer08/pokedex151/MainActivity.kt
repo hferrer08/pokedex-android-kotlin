@@ -7,10 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import com.hferrer08.pokedex151.ui.screens.pokemonlist.PokemonListScreen
 import com.hferrer08.pokedex151.ui.theme.PokeDex151Theme
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +19,6 @@ class MainActivity : ComponentActivity() {
             PokeDex151Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     PokemonListScreen(
-                        name = "Android",
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -29,5 +26,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-
