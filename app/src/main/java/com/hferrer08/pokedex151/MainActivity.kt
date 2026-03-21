@@ -8,7 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.hferrer08.pokedex151.ui.screens.pokemonlist.PokemonListScreen
+import com.hferrer08.pokedex151.navigation.AppNavigation
 import com.hferrer08.pokedex151.ui.theme.PokeDex151Theme
 
 class MainActivity : ComponentActivity() {
@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             PokeDex151Theme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    PokemonListScreen(
+                    AppNavigation(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
