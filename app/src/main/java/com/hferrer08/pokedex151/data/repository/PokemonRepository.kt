@@ -2,6 +2,7 @@ package com.hferrer08.pokedex151.data.repository
 
 import com.hferrer08.pokedex151.data.mapper.toDomain
 import com.hferrer08.pokedex151.data.remote.api.RetrofitInstance
+import com.hferrer08.pokedex151.data.remote.api.RetrofitInstance.api
 import com.hferrer08.pokedex151.data.remote.dto.PokemonListResponseDto
 import com.hferrer08.pokedex151.domain.model.Pokemon
 
@@ -15,4 +16,6 @@ class PokemonRepository {
 
         return Pair(pokemonList, response.count)
     }
+
+    suspend fun getPokemonById(id: Int) = api.getPokemonById(id)
 }
