@@ -22,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hferrer08.pokedex151.data.repository.PokemonRepository
+import coil.compose.AsyncImage
 
 @Composable
 fun PokemonDetailScreen(
@@ -69,40 +70,32 @@ fun PokemonDetailScreen(
                         modifier = Modifier.padding(20.dp),
                         verticalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
+
+                        AsyncImage(
+                            model = pokemon.sprites.front_default,
+                            contentDescription = pokemon.name,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(200.dp),
+                            alignment = Alignment.Center
+                        )
+
                         Text(
                             text = pokemon.name.replaceFirstChar { it.uppercase() },
                             style = MaterialTheme.typography.headlineMedium
                         )
 
-                        Text(
-                            text = "Pokédex ID: ${pokemon.id}",
-                            style = MaterialTheme.typography.bodyLarge
-                        )
+                        Text(text = "Pokédex ID: ${pokemon.id}")
+                        Text(text = "Altura: ${pokemon.height}")
+                        Text(text = "Peso: ${pokemon.weight}")
 
-                        Text(
-                            text = "Altura: ${pokemon.height}",
-                            style = MaterialTheme.typography.bodyLarge
-                        )
-
-                        Text(
-                            text = "Peso: ${pokemon.weight}",
-                            style = MaterialTheme.typography.bodyLarge
-                        )
-
-                        Text(
-                            text = "Tipos:",
-                            style = MaterialTheme.typography.titleMedium
-                        )
+                        Text(text = "Tipos:")
 
                         pokemon.types.forEach { typeSlot ->
-                            Text(
-                                text = "- ${typeSlot.type.name.replaceFirstChar { it.uppercase() }}",
-                                style = MaterialTheme.typography.bodyMedium
-                            )
+                            Text(text = "- ${typeSlot.type.name}")
                         }
                     }
                 }
-
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
