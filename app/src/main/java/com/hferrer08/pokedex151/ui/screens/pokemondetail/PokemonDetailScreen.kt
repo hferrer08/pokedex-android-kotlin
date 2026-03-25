@@ -24,6 +24,16 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hferrer08.pokedex151.data.repository.PokemonRepository
 import coil.compose.AsyncImage
 import com.hferrer08.pokedex151.data.local.FavoritesManager
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.StarBorder
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun PokemonDetailScreen(
@@ -62,6 +72,12 @@ fun PokemonDetailScreen(
             uiState.pokemon != null -> {
                 val pokemon = uiState.pokemon!!
 
+                val context = LocalContext.current
+                val favoritesManager = remember(context) { FavoritesManager(context) }
+                var isFavorite by remember(pokemon.id) {
+                    mutableStateOf(favoritesManager.isFavorite(pokemon.id))
+                }
+
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(20.dp),
@@ -85,6 +101,23 @@ fun PokemonDetailScreen(
                             text = pokemon.name.replaceFirstChar { it.uppercase() },
                             style = MaterialTheme.typography.headlineMedium
                         )
+                        Button(
+                            onClick = {
+                                favoritesManager.toggleFavorite(pokemon.id)
+                                isFavorite = favoritesManager.isFavorite(pokemon.id)
+                            }
+                        ) {
+                            Icon(
+                                imageVector = if (isFavorite) Icons.Filled.Star else Icons.Outlined.StarBorder,
+                                contentDescription = null
+                            )
+
+                            Spacer(modifier = Modifier.width(8.dp))
+
+                            Text(
+                                text = if (isFavorite) "Quitar de favoritos" else "Agregar a favoritos"
+                            )
+                        }
 
                         Text(text = "Pokédex ID: ${pokemon.id}")
                         Text(text = "Altura: ${pokemon.height}")
