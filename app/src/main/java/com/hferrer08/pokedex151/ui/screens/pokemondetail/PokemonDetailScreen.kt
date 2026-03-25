@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.hferrer08.pokedex151.data.repository.PokemonRepository
 import coil.compose.AsyncImage
+import com.hferrer08.pokedex151.data.local.FavoritesManager
 
 @Composable
 fun PokemonDetailScreen(

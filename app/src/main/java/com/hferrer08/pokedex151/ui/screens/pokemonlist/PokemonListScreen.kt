@@ -23,6 +23,17 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.hferrer08.pokedex151.domain.model.Pokemon
 import com.hferrer08.pokedex151.viewmodel.PokemonListViewModel
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.StarBorder
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
+import com.hferrer08.pokedex151.data.local.FavoritesManager
 
 @Composable
 fun PokemonListScreen(
@@ -124,7 +135,11 @@ fun PokemonListScreen(
 }
 
 @Composable
-fun PokemonItem(pokemon: Pokemon,  onClick: () -> Unit) {
+fun PokemonItem(pokemon: Pokemon, onClick: () -> Unit) {
+    val context = LocalContext.current
+    val favoritesManager = remember { FavoritesManager(context) }
+    var isFavorite by remember { mutableStateOf(favoritesManager.isFavorite(pokemon.id)) }
+
     Card(
         modifier = Modifier.fillMaxWidth(),
         onClick = onClick
@@ -141,15 +156,36 @@ fun PokemonItem(pokemon: Pokemon,  onClick: () -> Unit) {
                 modifier = Modifier.size(72.dp)
             )
 
-            Column {
-                Text(
-                    text = "#${pokemon.id}",
-                    style = MaterialTheme.typography.bodySmall
-                )
-                Text(
-                    text = pokemon.name.replaceFirstChar { it.uppercase() },
-                    style = MaterialTheme.typography.titleMedium
-                )
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Column {
+                        Text(
+                            text = "#${pokemon.id}",
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                        Text(
+                            text = pokemon.name.replaceFirstChar { it.uppercase() },
+                            style = MaterialTheme.typography.titleMedium
+                        )
+                    }
+
+                    IconButton(
+                        onClick = {
+                            favoritesManager.toggleFavorite(pokemon.id)
+                            isFavorite = favoritesManager.isFavorite(pokemon.id)
+                        }
+                    ) {
+                        Icon(
+                            imageVector = if (isFavorite) Icons.Filled.Star else Icons.Outlined.StarBorder,
+                            contentDescription = if (isFavorite) "Quitar de favoritos" else "Agregar a favoritos"
+                        )
+                    }
+                }
             }
         }
     }
